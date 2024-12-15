@@ -10,18 +10,18 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, dob, gender} = req.body;
+        const { name, username, password, dob, gender} = req.body;
         console.log(req.body);
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ username });
         if (existingUser) {
-            return res.status(400).send({ error: 'User already exists' });
+            return res.status(400).send({ error: 'Username already taken' });
         }
 
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        const user = new User({ name, email, password: hashedPassword, dob, gender });
+        const user = new User({ name, username, password: hashedPassword, dob, gender });
         await user.save();
 
         res.status(201).send({ message: 'User registered successfully' });
@@ -32,11 +32,11 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
         if (!user) {
-            return res.status(400).send({ error: 'Invalid Email' });
+            return res.status(400).send({ error: 'Invalid username' });
         }
 
         console.log(req.body);
