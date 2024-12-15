@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', function (next) {
     if (!this.profilePicture) {
         // Assign a random avatar using RoboHash based on the email
-        this.profilePicture = `https://robohash.org/${encodeURIComponent(this.email)}.png`;
+        this.profilePicture = `https://robohash.org/${encodeURIComponent(this.username)}.png`;
     }
     next();
 });
