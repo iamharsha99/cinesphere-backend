@@ -1,0 +1,8 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS GetMovieDetails;
+CREATE PROCEDURE GetMovieDetails(IN movieId INT)
+BEGIN
+  SELECT * FROM movie WHERE id = movieId;
+END //
+
+DELIMITER ;
