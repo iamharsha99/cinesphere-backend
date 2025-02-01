@@ -1,0 +1,8 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS GetRecentReviews;
+CREATE PROCEDURE GetRecentReviews(IN movieId INT)
+BEGIN
+  SELECT * FROM reviews WHERE movie_id = movieId ORDER BY date DESC LIMIT 3;
+END //
+
+DELIMITER ;
