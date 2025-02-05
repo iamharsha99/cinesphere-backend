@@ -44,7 +44,10 @@ app.get('/test-db', async (req, res) => {
 app.use('/auth', require('./routes/auth'));
 app.use('/profile', require('./routes/profile'));
 app.use('/movie', require('./routes/movie'));
-
+app.use('/watchlist', require('./routes/watchlist'));
+app.use('/favourites', require('./routes/favourites'));
+app.use('/reviews',require('./routes/review'));
+app.use('/home', require('./routes/home'));
 
 
 // Start the server

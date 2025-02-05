@@ -10,7 +10,7 @@ const {
   addReview,
 } = require('../controllers/moviePageController');
 const { authenticateJWT } = require('../middleware/authenticateJWT');
-
+const { getTrendingMovies } = require('../controllers/homeController');
 const router = express.Router();
 
 // Route to get movie details by ID
@@ -28,5 +28,8 @@ router.get('/favorites/:movieId', authenticateJWT, isFavorite);
 
 // Route to add a review
 router.post('/reviews', authenticateJWT, addReview);
+
+
+router.get('/trending', authenticateJWT,getTrendingMovies);
 
 module.exports = router;
