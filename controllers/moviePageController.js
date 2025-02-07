@@ -126,6 +126,22 @@ const addReview = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+const getMovieReviews = async (req, res) => {
+  const { id } = req.params;
+  const { page = 1, sort = 'date_desc' } = req.query;
+  const limit = 3;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [reviews] = await req.db.query('CALL GetMovieReviews(?, ?, ?, ?)', [id, limit, offset, sort]);
+    const [countResult] = await req.db.query('SELECT FOUND_ROWS() AS total');
+    const totalPages = Math.ceil(countResult[0].total / limit);
+    res.status(200).json({ reviews, totalPages });
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 module.exports = {
   getMovieById,
@@ -136,4 +152,5 @@ module.exports = {
   removeFromFavorites,
   isFavorite,
   addReview,
+  getMovieReviews,
 };

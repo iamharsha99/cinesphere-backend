@@ -8,6 +8,7 @@ const {
   removeFromFavorites,
   isFavorite,
   addReview,
+  getMovieReviews
 } = require('../controllers/moviePageController');
 const { authenticateJWT } = require('../middleware/authenticateJWT');
 const { getTrendingMovies } = require('../controllers/homeController');
@@ -28,8 +29,7 @@ router.get('/favorites/:movieId', authenticateJWT, isFavorite);
 
 // Route to add a review
 router.post('/reviews', authenticateJWT, addReview);
+router.get('/:id/reviews', authenticateJWT,getMovieReviews);
 
-
-router.get('/trending', authenticateJWT,getTrendingMovies);
 
 module.exports = router;

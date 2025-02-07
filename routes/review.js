@@ -5,6 +5,7 @@ const { authenticateJWT } = require('../middleware/authenticateJWT');
 const router = express.Router();
 
 router.get('/', authenticateJWT, getReviews);
+
 router.put('/:id', authenticateJWT, updateReview);
 
 module.exports = router;

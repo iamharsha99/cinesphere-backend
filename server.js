@@ -48,6 +48,8 @@ app.use('/watchlist', require('./routes/watchlist'));
 app.use('/favourites', require('./routes/favourites'));
 app.use('/reviews',require('./routes/review'));
 app.use('/home', require('./routes/home'));
+app.use('/search', require('./routes/search'));
+
 
 
 // Start the server
