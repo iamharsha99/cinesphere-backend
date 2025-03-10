@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   getMovieById,
+  getMovieByTitles, // New controller function
   addToWatchlist,
   removeFromWatchlist,
   isInWatchlist,
@@ -8,7 +9,8 @@ const {
   removeFromFavorites,
   isFavorite,
   addReview,
-  getMovieReviews
+  getMovieReviews,
+  getMovieByIds
 } = require('../controllers/moviePageController');
 const { authenticateJWT } = require('../middleware/authenticateJWT');
 const { getTrendingMovies } = require('../controllers/homeController');
@@ -16,6 +18,9 @@ const router = express.Router();
 
 // Route to get movie details by ID
 router.get('/:id', getMovieById);
+
+// Route to get movie details by titles
+router.post('/details', getMovieByIds); // New route
 
 // Routes for watchlist
 router.post('/watchlist', authenticateJWT, addToWatchlist);
@@ -29,7 +34,6 @@ router.get('/favorites/:movieId', authenticateJWT, isFavorite);
 
 // Route to add a review
 router.post('/reviews', authenticateJWT, addReview);
-router.get('/:id/reviews', authenticateJWT,getMovieReviews);
-
+router.get('/:id/reviews', authenticateJWT, getMovieReviews);
 
 module.exports = router;

@@ -49,8 +49,8 @@ app.use('/favourites', require('./routes/favourites'));
 app.use('/reviews',require('./routes/review'));
 app.use('/home', require('./routes/home'));
 app.use('/search', require('./routes/search'));
-
-
+app.use('/recommend', require('./routes/recommend'));
+app.use('/analytics', require('./routes/analytics'));
 
 // Start the server
 app.listen(PORT, () => {

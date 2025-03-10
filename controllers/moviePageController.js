@@ -1,4 +1,17 @@
+const getMovieByIds = async (req, res) => {
+  const ids = req.body.ids;
 
+  try {
+    const [movies] = await req.db.query('CALL GetMovieDetailsByIds(?)', [ids.join(',')]);
+    if (movies.length === 0) {
+      return res.status(404).json({ message: 'Movies not found' });
+    }
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 // Controller to get movie details by ID
 const getMovieById = async (req, res) => {
   const { id } = req.params;
@@ -22,7 +35,8 @@ const getMovieById = async (req, res) => {
     movie.reviews = reviewRows[0];
     movie.ratings = ratingRows[0];
 
-    res.status(200).json(movie);
+    const [movieProviders] = await req.db.query('CALL GetMovieProviders(?)', [id]);
+    res.status(200).json({movie,providers:movieProviders[0]});
   } catch (error) {
     console.error('Error fetching movie details:', error);
     res.status(500).json({ message: 'Server error' });
@@ -153,4 +167,5 @@ module.exports = {
   isFavorite,
   addReview,
   getMovieReviews,
+  getMovieByIds,
 };

@@ -2,7 +2,7 @@
 const getProfile = async (req, res) => {
     try {
       const username = req.user.username;
-  
+      console.log(req.user);
       const [rows] = await req.db.query('SELECT * FROM user WHERE username = ?', [username]);
   
       if (rows.length === 0) {
